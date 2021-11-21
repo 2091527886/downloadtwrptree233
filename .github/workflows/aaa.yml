@@ -91,7 +91,7 @@ jobs:
         PATH=~/bin:$PATH
         cd workspace
         tar -zcvf 233.tar.gz *
-        split -b 1999M 233.tar.gz "233.part"
+        split -b 1500M 233.tar.gz "233.part"
 
 
     - name: Upload to Release
