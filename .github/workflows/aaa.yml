@@ -54,7 +54,7 @@ jobs:
         sudo apt -y autoclean
         sudo apt clean
         sudo apt update
-        sudo apt -y install git-core gnupg flex bison gperf build-essential zip curl tree lib32z-dev sltproc unzip jq bc bison build-essential ccache curl flex git pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev imagemagick libbz2-dev libssl-dev lzma ncftp bash-completion python  qemu-user-static
+        sudo apt -y install git-core gnupg flex bison gperf build-essential zip curl tree lib32z-dev unzip jq bc bison build-essential curl git gnupg gperf   zip zlib1g-dev imagemagick bash-completion python qemu-user-static
       
     - name: Set variables
       run: |
