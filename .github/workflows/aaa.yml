@@ -14,7 +14,7 @@ on:
       LIBRARY_BRANCH:
         description: 'LIBRARY_BRANCH'
         required: true
-        default: 'twrp-10.0-deprecated'
+        default: 'twrp-10.0'
       DEVICE_URL:
         description: 'DEVICE_URL'
         required: true
@@ -31,10 +31,6 @@ on:
         description: 'DEVICE_NAME'
         required: true
         default: 'msmnile'
-      DEVICE_TYPE:
-        description: 'DEVICE_TYPE'
-        required: true
-        default: 'eng'
 
 jobs:
   build:
@@ -82,26 +78,62 @@ jobs:
     - name: Repo Sync
       run: |
         PATH=~/bin:$PATH
+        
         cd workspace
-        repo sync -j$(nproc --all)
-        rm -rf .repo
+        
+        repo sync -j5 -c
         chmod 777 *
-      
-    - name: Clone device
+        ls -a
+        rm -rf .repo
+        
+    - name: Building
       run: |
         PATH=~/bin:$PATH
-        cd workspace
-        tar -zcvf 233.tar.gz *
+        
+        tar -zcvf 233.tar.gz workspace
+        
         split -b 1999M 233.tar.gz "233.part"
-        chmod 777 *
-
-
+        rm -rf workspace
+        ls -a
+          
     - name: Upload to Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          workspace/233.part*
+          233.partaa
+          233.partab
+          
+          
         name: ${{ github.event.inputs.DEVICE_NAME }}-${{ github.run_id }}
+        tag_name: ${{ github.run_id }}
+        body: Recovery for ${{ github.event.inputs.DEVICE_NAME }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload to Releas
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          233.partac
+          233.partad
+          
+          
+        name: ${{ github.event.inputs.DEVICE_NAME }}-${{ github.run_id }}-1
+        tag_name: ${{ github.run_id }}
+        body: Recovery for ${{ github.event.inputs.DEVICE_NAME }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+    - name: Upload to Releas
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          233.partaf
+          233.partag
+          
+          
+        name: ${{ github.event.inputs.DEVICE_NAME }}-${{ github.run_id }}-2
         tag_name: ${{ github.run_id }}
         body: Recovery for ${{ github.event.inputs.DEVICE_NAME }}
       env:
