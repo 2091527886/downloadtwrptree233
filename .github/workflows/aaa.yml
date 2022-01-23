@@ -129,8 +129,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
+          233.partae
           233.partaf
-          233.partag
           
           
         name: ${{ github.event.inputs.DEVICE_NAME }}-${{ github.run_id }}-2
